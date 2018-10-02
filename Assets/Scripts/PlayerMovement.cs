@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
 
     public float movementSpeed;
+    public GameObject cameraPivot;
 
     private Rigidbody rb;
     private bool moving;
@@ -23,8 +24,11 @@ public class PlayerMovement : MonoBehaviour {
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         if(Input.GetButton("Horizontal") || Input.GetButton("Vertical")) {
-            rotationVector.Set(horizontalInput, 0, verticalInput);
-            transform.rotation = Quaternion.LookRotation(rotationVector);
+            rotationVector.Set(
+                horizontalInput,
+                0, 
+                verticalInput);
+            transform.rotation = Quaternion.LookRotation(rotationVector) * Quaternion.Euler(0, cameraPivot.transform.rotation.eulerAngles.y, 0);
             moving = true;
         }
 

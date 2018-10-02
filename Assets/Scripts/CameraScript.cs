@@ -14,5 +14,10 @@ public class CameraScript : MonoBehaviour {
 
 	void Update () {
         transform.position = Player.transform.position + CameraInitialPosition;
-	}
+        transform.rotation = Quaternion.Euler(
+            transform.rotation.eulerAngles.x - Input.GetAxis("Mouse Y"),
+            transform.rotation.eulerAngles.y + Input.GetAxis("Mouse X"),
+            0
+        );
+    }
 }
